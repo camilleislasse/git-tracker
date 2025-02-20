@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: git-tracker
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+      - ./static:/app/static
+      - ./templates:/app/templates
+      - ${HOME}:${HOME}
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped

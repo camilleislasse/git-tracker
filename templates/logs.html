@@ -1,0 +1,72 @@
+<div class="row mt-4">
+    <!-- Section pour Afficher les Logs du Projet -->
+    <div class="col-md-12 mb-4">
+        <div class="card shadow-sm">
+            {% if project_name is none %}
+                <div class="card-header">Aucun log disponible.</div>
+            {% else %}
+            <div class="card-header">Logs de {{ project_name }}</div>
+            <div class="card-body">
+                {% if logs %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Branche</th>
+                            <th>Temps (min)</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log.date }}</td>
+                            <td>
+                                <span class="badge bg-primary">{{ log.branch }}</span>
+                            </td>
+                            <td>
+                                    <span class="badge bg-secondary editable-time"
+                                          data-project="{{ project_name }}"
+                                          data-branch="{{ log.branch }}"
+                                          data-url="{{ url_for('update_time') }}">
+                                        {{ log.time_spent // 60 }} <!-- Affiche le temps en minutes -->
+                                    </span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    {% if "#" in log.branch %}
+                                    {% set ticket_number = log.branch.split("#")[-1] %}
+                                    <a href="https://redmine.acseo.co/issues/{{ ticket_number }}/time_entries/new"
+                                       target="_blank" class="text-success me-3"
+                                       title="Saisir dans Redmine">
+                                        <i class="bi bi-box-arrow-up-right fs-5"></i>
+                                    </a>
+                                    {% endif %}
+                                    <!-- Formulaire de suppression -->
+                                    <form action="{{ url_for('delete_log') }}" method="post" class="d-inline">
+                                        <input type="hidden" name="project_name" value="{{ project_name }}">
+                                        <input type="hidden" name="project_path" value="{{ project_path }}">
+                                        <input type="hidden" name="date" value="{{ log.date }}">
+                                        <input type="hidden" name="branch" value="{{ log.branch }}">
+                                        <button type="submit" class="border-0 bg-transparent text-danger"
+                                                onclick="return confirm('Voulez-vous vraiment supprimer cette entrée ?');"
+                                                title="Supprimer">
+                                            <i class="bi bi-x-circle fs-5"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted text-center">Aucun log disponible.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
