@@ -10,8 +10,8 @@ Cette application permet de suivre les branches Git actives dans différents pro
 
 1. **Cloner le projet** :
 ```sh
-git clone https://github.com/votre-repository.git
-cd votre-repository
+git clone https://github.com/camilleislasse/git-tracker.git
+cd git-tracker
 ```
 
 2. **Démarrer l’application** :

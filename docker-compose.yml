@@ -12,6 +12,4 @@ services:
       - ./static:/app/static
       - ./templates:/app/templates
       - ${HOME}:${HOME}
-    environment:
-      - FLASK_ENV=development
     restart: unless-stopped
