@@ -41,8 +41,8 @@ docker-compose down
    Ouvrez un terminal et exécutez la commande suivante pour cloner le projet :
 
    ```bash
-   git clone https://github.com/votre_utilisateur/votre_repository.git
-   cd votre_repository
+   git clone https://github.com/camilleislasse/git-tracker.git
+   cd git-tracker
    ```
 
 2. **Installez les dépendances Python** :
